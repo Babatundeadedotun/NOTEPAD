@@ -1,0 +1,84 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.searchDiv{
+  margin-left: -150px !important;
+}
+
+@media screen and (max-width: 430px){
+    .list{
+     font-size: 90% !important;
+    }
+    .firstHead{
+      font-size: 130% !important;
+    }
+    .firstPara{
+      font-size: 110% !important;
+    }
+  }
+
+  @media screen and (max-width: 480px){
+    .signup{
+      padding-top: 0px !important;
+    }
+    .tryWrite{
+      font-size: 150% !important;
+    }
+    .signupPara{
+      font-size: 95% !important;
+    }
+
+    .loginDiv{
+      width: 80% !important;
+    }
+    .loginForm{
+      width: auto;
+    }
+    .searchDiv{
+      display: none !important;
+    }
+    .heroContent{
+      width: 80% !important;
+    }
+    .logoImg{
+      width: 140px !important;
+    }
+    .forgetDiv{
+      width: 85% !important;
+    }
+    .forgetForm{
+      width: auto !important;
+      padding: 10% !important;
+    }
+  }
+
+  @media screen and (max-width: 820px){
+    .loginDiv{
+      width: 70% !important;
+    }
+    .loginForm{
+      width: auto;
+    }
+    .navbarBtn{
+      width: 45% !important;
+
+    } 
+    .navbarSearch{
+      width: 100% !important;
+      height: 50px !important;
+    }
+    .searchDiv{
+      padding: 10px !important;
+      margin-left: -80px !important;
+    }
+
+  }
+
+  @media screen and (max-width: 582px){
+   .searchDiv{
+      display: none !important;
+   }
+  }
