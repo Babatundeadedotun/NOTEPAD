@@ -19,8 +19,6 @@ app.use(express.urlencoded({ limit: '9000mb', extended: true }))
 app.use(express.static("public"))
 
 
-
-
             mongoose.connect(URL)
             .then(() => {
                 console.log('Connected to Database')
