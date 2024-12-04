@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("email");
-    navigate("/signin")
+    navigate("/")
   }
 
 
