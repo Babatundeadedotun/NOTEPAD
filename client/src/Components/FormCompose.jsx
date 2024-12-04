@@ -10,7 +10,7 @@ const FormCompose = () => {
 
     const navigate = useNavigate() 
 
-    const url = "http://localhost:8080/register"
+    const url = "https://notepad-69yg.vercel.app/register"
 
 
     const formik = useFormik({
