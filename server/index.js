@@ -11,7 +11,7 @@ const URL = process.env.URI
 
 
 app.use(cors({ 
-    origin: "http://localhost:5173",
+    origin: "https://notepad-jet.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true }))
 app.use(express.json({ limit: '9000mb' }))
