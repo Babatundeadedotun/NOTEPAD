@@ -8,9 +8,14 @@ import '../App.css'
 
 const FormCompose = () => {
 
+
+    const [showPassword, setShowPassword] = React.useState(false);
+
     const navigate = useNavigate() 
 
     const url = "https://notepad-69yg.vercel.app/register"
+
+    // const url = "http://localhost:8080/register"
 
 
     const formik = useFormik({
@@ -86,7 +91,9 @@ const FormCompose = () => {
         <input type="email" placeholder='Email' className={formik.touched.email && formik.errors.email ? 'form-control my-2 is-invalid' : 'form-control my-2'} value={formik.values.email} name='email' onChange={formik.handleChange}  onBlur={formik.handleBlur}/> 
 
         <h6 className='text-dark'>{formik.touched.password && formik.errors.password}</h6>
-        <input type="password" placeholder='Password' className={formik.touched.password && formik.errors.password ? 'form-control my-2 is-invalid' : 'form-control my-2'} value={formik.values.password} name='password' onChange={formik.handleChange}  onBlur={formik.handleBlur}/>
+        <div className='input-group my-2'>
+        <input type={showPassword ? 'text' : 'password'} placeholder='Password' className={formik.touched.password && formik.errors.password ? 'form-control is-invalid' : 'form-control'} value={formik.values.password} name='password' onChange={formik.handleChange}  onBlur={formik.handleBlur}/><span className='input-group-text' onClick={() => setShowPassword(!showPassword)} style={{cursor: 'pointer'}}><i className="bi bi-eye-slash"></i></span>
+        </div>
         <button type="submit" className='btn btn-info my-2 w-100 rounded-5 fs-3'><em className='fs-5 link-offset-2 link-underline link-underline-opacity-0 text-white'>Start for FREE!!!</em></button>
         </form>
         </div>

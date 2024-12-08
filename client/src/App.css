@@ -7,6 +7,50 @@ body, html {
 .searchDiv{
   margin-left: -150px !important;
 }
+.navbarSearch:focus {
+  width: 140%;
+  transition: width 0.3s ease-in-out;
+}
+
+.expanded-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+.expanded-content {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  z-index: 1001;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
 
 @media screen and (max-width: 430px){
     .list{

@@ -1,14 +1,33 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import { useState } from 'react';
+// import PropTypes from 'prop-types';
 
 const Navbar = () => {
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("email");
     navigate("/")
+  }
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    const allSuggestions = ['Project', 'Daily Journal', 'Meeting', 'Personal', 'Shopping']
+    setSuggestions(allSuggestions.filter((item) => item.toLowerCase().includes(value.toLowerCase())))
+  }
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion);
+    setSuggestions([]);
   }
 
 
@@ -21,10 +40,19 @@ const Navbar = () => {
     <a className="navbar-brand text-info fs-1" href="#"><img src="/logo.jpg" className='pb-2 border border-1 rounded rounded-3 logoImg' style={{width: "180px"}}/></a>
 
 
-    <form className="d-flex w-50 searchDiv" role="search">
-        <input className="form-control me-2 py-3 border border-1 rounded rounded-pill navbarSearch" type="search" placeholder="Search" aria-label="Search"/>
+    <div className="d-flex w-50 searchDiv" onMouseEnter = {() => setShowSuggestions(true)} onMouseLeave={() => setShowSuggestions(false)} role="search">
+        <input className="form-control me-2 py-3 border border-1 rounded rounded-pill navbarSearch" value={searchQuery} onChange={handleSearchChange} type="search" placeholder="Search" aria-label="Search"/>
+        {showSuggestions && suggestions.length > 0 && (
+        <ul className='list-group position-absolute w-100 mt-5' style={{ zIndex: 1000 }}>
+        {suggestions.map((suggestion, index) => (
+
+          <li key={index} className="list-group-item list-group-item-action" onClick={() => handleSuggestionClick(suggestion)} style={{ cursor: 'pointer', width: '35%' }}>{suggestion}</li>
+              ))}
+        </ul>
+        )}
+
         <button className="btn btn-info text-white border border-1 rounded rounded-pill w-25 navbarBtn" type="submit">Search</button>
-      </form>
+      </div>
 
 
     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -41,19 +69,19 @@ const Navbar = () => {
         <hr/>
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="#">Notes</a>
+            <a className="nav-link active d-flex gap-3" aria-current="page" href="#"><i className="bi bi-lightbulb"></i>Notes</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Reminders</a>
+            <a className="nav-link d-flex gap-3" href="#"><i className="bi bi-bell-fill"></i>Reminders</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Edit labels</a>
+            <a className="nav-link d-flex gap-3" href="#"><i className="bi bi-pen"></i>Edit labels</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Archive</a>
+            <a className="nav-link d-flex gap-3" href="#"><i className="bi bi-box-arrow-down"></i>Archive</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">Bin</a>
+            <a className="nav-link d-flex gap-3" href="#"><i className="bi bi-trash3"></i>Bin</a>
           </li>
 
           {/* <li className="nav-item dropdown">
@@ -85,5 +113,13 @@ const Navbar = () => {
     </>
   )
 }
+
+// Navbar.propTypes = {
+//   onSearch: PropTypes.func
+// }
+
+// Navbar.defaultProps = {
+//   onSearch: () => console.warn("onSearch is missing")
+// }
 
 export default Navbar

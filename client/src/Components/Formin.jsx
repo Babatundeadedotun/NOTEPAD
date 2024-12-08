@@ -8,6 +8,9 @@ import '../App.css'
 
 const Formin = () => {
 
+
+    const [showPassword, setShowPassword] = React.useState(false);
+
     const navigate = useNavigate()
 
     // const url = "http://localhost:8080/login"
@@ -74,8 +77,12 @@ const Formin = () => {
         <form onSubmit={formik.handleSubmit}>
         <h6 className='text-dark'>{formik.touched.email && formik.errors.email}</h6>
         <input type="email" placeholder='Email' className={formik.touched.email && formik.errors.email ? 'form-control my-2 is-invalid' : 'form-control my-2'} name='email' onChange={formik.handleChange} value={formik.values.email} onBlur={formik.handleBlur}/>
+        
         <h6 className='text-dark'>{formik.touched.password && formik.errors.password}</h6>
-        <input type="password" placeholder='Password' className={formik.touched.password && formik.errors.password ? 'form-control my-2 is-invalid' : 'form-control my-2'}  name='password' onChange={formik.handleChange} value={formik.values.password} onBlur={formik.handleBlur}/>
+        <div className='input-group my-2'>
+        <input type={showPassword ? 'text' : 'password'} placeholder='Password' className={formik.touched.password && formik.errors.password ? 'form-control is-invalid' : 'form-control'} value={formik.values.password} name='password' onChange={formik.handleChange}  onBlur={formik.handleBlur}/><span className='input-group-text' onClick={() => setShowPassword(!showPassword)} style={{cursor: 'pointer'}}><i className="bi bi-eye-slash"></i></span>
+        </div>
+
         <button type="submit" className='btn btn-info my-2 w-100 rounded-5 fs-3'><em className='fs-5 link-offset-2 link-underline link-underline-opacity-0 text-white'>Sign in</em></button>
 
         <h6 className='text-info mt-4 text-center'><Link to={'/forget-password'} className='link-info link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover'>Forget your password?</Link></h6>

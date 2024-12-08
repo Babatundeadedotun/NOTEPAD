@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -16,6 +17,10 @@ cloudinary.config({
         try {
         // console.log(req.body);
         let image = req.body.file;
+
+        if(!image){
+            return res.send({ message: "No Image Provided", status:false, stored: null })
+        }
         
         const result = await cloudinary.uploader.upload(image, { width: 500, height: 500, crop: "limit" })
             // console.log(result.url);
@@ -29,10 +34,12 @@ cloudinary.config({
 const createMessage = async (req, res) => {
     console.log(req.body);
     // console.log(req.body.file);
+
+    const { userEmail, title, content, date, fileReceived } = req.body;
     
     console.time("Save Content")
-    const content = new Content(req.body);
-    await content.save()
+    const newContent = new Content({ userEmail, title, content, date, fileReceived: fileReceived || null });
+    await newContent.save()
     .then((result) => {
         if(result) {
         res.send({ message: "Note Saved", status: true})
@@ -111,6 +118,7 @@ const getMessage = async (req, res) => {
         
     }
 
+ 
 
 
 
