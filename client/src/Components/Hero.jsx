@@ -13,7 +13,6 @@ const Hero = () => {
   
   const url = "https://notepad-69yg.vercel.app/save"
 
-    // const url = "http://localhost:8080/save"
 
 
 
