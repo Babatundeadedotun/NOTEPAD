@@ -110,7 +110,7 @@ const forgetPassword = async (req, res) => {
             }
         })
 
-        const resetLink = `https://notepad-six-ebon.vercel.app/reset-password/${resetToken}`;
+        const resetLink = `https://notepad-six-ebon.vercel.app/users/reset-password/${resetToken}`;
          transporter.sendMail({
             to: email,
             subject: "Password Reset Request",

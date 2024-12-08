@@ -30,9 +30,9 @@ app.use(express.static("public"))
             })
 
 
-    app.use("/", router)
+    app.use("/users", router)
 
-    app.use("/", messageRouter)
+    app.use("/messages", messageRouter)
 
     app.get("/", (req, res) => {
         res.send("Hello World");
