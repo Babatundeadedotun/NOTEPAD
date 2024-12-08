@@ -39,9 +39,9 @@ app.use(express.static('public'))
         res.send("Hello World");
     })
 
-    // app.get("*", (req, res) => {
-    //     res.sendFile(path.join(__dirname, "public", "index.html"))
-    // })
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "public", "index.html"))
+    })
 
 
 // app.listen(PORT,() => {
