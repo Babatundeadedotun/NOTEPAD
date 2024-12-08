@@ -9,7 +9,6 @@ require("dotenv").config();
 
 
 
-
 const registerUser = async (req, res) => {
     console.log(req.body)
     console.time("Save user")
@@ -89,8 +88,6 @@ const forgetPassword = async (req, res) => {
     const { email } = req.body;
 
     try {
-
-    
      const user = await userModel.findOne({ email })
     
         if(!user) {
