@@ -11,7 +11,7 @@ const URL = process.env.URI
 
 
 app.use(cors({ 
-    origin: "https://notepad-jet.vercel.app",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true }))
 app.use(express.json({ limit: '9000mb' }))
@@ -35,9 +35,9 @@ app.use(express.static("public"))
     app.use("/", messageRouter)
 
 
-// app.listen(PORT,() => {
-//     console.log(`Server is running on ${PORT}`)
-// })
+app.listen(PORT,() => {
+    console.log(`Server is running on ${PORT}`)
+})
 
 
-module.exports = app
+// module.exports = app

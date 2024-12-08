@@ -31,7 +31,7 @@ const ResetPassword = () => {
             setLoading(true)
             setMessage(null)
             try {
-                const response = await axios.post(`https://notepad-69yg.vercel.app/reset-password/${token}`, {password: values.password});
+                const response = await axios.post(`http://localhost:8080/reset-password/${token}`, {password: values.password});
                 setMessage({ type: 'success', text: response.data.message })
                 setTimeout(() => {
                     navigate('/login');

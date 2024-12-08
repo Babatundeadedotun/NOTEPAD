@@ -31,7 +31,7 @@ const Forget = () => {
           setLoading(true)
           setMessage(null)
 
-          axios.post('https://notepad-69yg.vercel.app/forget-password', { email: values.email })
+          axios.post('http://localhost:8080/forget-password', { email: values.email })
           .then((response) => {
             const successMessage = { type: 'success', text: 'Reset link sent to your email' }
             setMessage(successMessage)

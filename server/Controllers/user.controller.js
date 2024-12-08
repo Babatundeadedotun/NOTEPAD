@@ -113,7 +113,7 @@ const forgetPassword = async (req, res) => {
             }
         })
 
-        const resetLink = `https://notepad-jet.vercel.app/reset-password/${resetToken}`;
+        const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
          transporter.sendMail({
             to: email,
             subject: "Password Reset Request",
