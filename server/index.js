@@ -35,6 +35,9 @@ app.use(express.static("public"))
     app.use("/", messageRouter)
 
 
-app.listen(PORT,() => {
-    console.log(`Server is running on ${PORT}`)
-})
+// app.listen(PORT,() => {
+//     console.log(`Server is running on ${PORT}`)
+// })
+
+
+module.exports = app
