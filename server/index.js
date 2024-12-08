@@ -34,6 +34,10 @@ app.use(express.static("public"))
 
     app.use("/", messageRouter)
 
+    app.get("/", (req, res) => {
+        res.send("Hello World");
+    })
+
 
 app.listen(PORT,() => {
     console.log(`Server is running on ${PORT}`)
