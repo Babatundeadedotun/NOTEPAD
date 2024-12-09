@@ -32,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')))
             })
 
 
-    app.use("/api", router)
+    app.use("/api/users", router)
 
-    app.use("/api", messageRouter)
+    app.use("/api/messages", messageRouter)
 
     // app.get("/", (req, res) => {
     //     res.send("Hello World");

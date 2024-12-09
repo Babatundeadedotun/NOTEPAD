@@ -11,7 +11,7 @@ import jsPDF from 'jspdf'
 const Hero = () => {
 
   
-  const url = "https://notepad-10ml.vercel.app/api/save"
+  const url = "https://notepad-10ml.vercel.app/api/messages/save"
 
 
 
@@ -49,7 +49,7 @@ const Hero = () => {
       convertedFile.readAsDataURL(userFile);
 
         convertedFile.onload = () => {
-          axios.post('https://notepad-10ml.vercel.app/api/save/upload', { file: convertedFile.result })
+          axios.post('https://notepad-10ml.vercel.app/api/messages/save/upload', { file: convertedFile.result })
           .then((response) => {
             setFileReceived(response.data.stored)
             // console.log(response.data.stored);
@@ -95,7 +95,7 @@ const Hero = () => {
      
 
         if(editingNoteId) { 
-          axios.put(`https://notepad-10ml.vercel.app/api/save/${editingNoteId}`, {userEmail, fileReceived, ...values})
+          axios.put(`https://notepad-10ml.vercel.app/api/messages/save/${editingNoteId}`, {userEmail, fileReceived, ...values})
           .then((response) => {
             console.log("Edit response:", response.data);
             setNotes((prevNotes) => prevNotes.map((note) => note._id === editingNoteId ? {...note, ...values} : note))
@@ -140,7 +140,7 @@ const Hero = () => {
       
       const fetchNotes = async (userEmail) => {
         try {
-          const response = await axios.get(`https://notepad-10ml.vercel.app/api/save/${userEmail}`)
+          const response = await axios.get(`https://notepad-10ml.vercel.app/api/messages/save/${userEmail}`)
           console.log(response.data);
           if(response.data.notes && Array.isArray(response.data.notes)) {
             setNotes(response.data.notes)
@@ -167,7 +167,7 @@ const Hero = () => {
           }
 
           try {
-            const response = await axios.delete(`https://notepad-10ml.vercel.app/api/save/${id}`)
+            const response = await axios.delete(`https://notepad-10ml.vercel.app/api/messages/save/${id}`)
             console.log("Delete response:", response.data);
 
             setNotes((prevNotes) => prevNotes.filter((note) => note._id !== id))
