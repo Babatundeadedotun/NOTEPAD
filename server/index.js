@@ -17,8 +17,8 @@ app.use(cors({
     credentials: true }))
 app.use(express.json({ limit: '9000mb' }))
 app.use(express.urlencoded({ limit: '9000mb', extended: true }))
-app.use(express.static('public'))
-// app.use(express.static(path.join(__dirname, 'public')))
+// app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 
 
@@ -36,9 +36,9 @@ app.use(express.static('public'))
 
     app.use("/api", messageRouter)
 
-    app.get("/", (req, res) => {
-        res.send("Hello World");
-    })
+    // app.get("/", (req, res) => {
+    //     res.send("Hello World");
+    // })
 
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, "public", "index.html"))
