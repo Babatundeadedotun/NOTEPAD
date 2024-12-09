@@ -32,17 +32,17 @@ app.use(express.static('public'))
             })
 
 
-    app.use("/users", router)
+    app.use("/api", router)
 
-    app.use("/messages", messageRouter)
+    app.use("/api", messageRouter)
 
     app.get("/", (req, res) => {
         res.send("Hello World");
     })
 
-    // app.get("*", (req, res) => {
-    //     res.sendFile(path.join(__dirname, "public", "index.html"))
-    // })
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "public", "index.html"))
+    })
 
 
 // app.listen(PORT,() => {

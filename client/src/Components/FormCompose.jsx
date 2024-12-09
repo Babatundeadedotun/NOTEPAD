@@ -15,7 +15,7 @@ const FormCompose = () => {
 
     // const url = "https://notepad-69yg.vercel.app/register"
 
-    const url = "https://notepad-10ml.vercel.app/users/register"
+    const url = "https://notepad-10ml.vercel.app/api/register"
 
 
     const formik = useFormik({

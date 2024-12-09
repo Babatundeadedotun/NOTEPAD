@@ -13,7 +13,7 @@ const Formin = () => {
 
     const navigate = useNavigate()
 
-    const url = "https://notepad-10ml.vercel.app/users/login"
+    const url = "https://notepad-10ml.vercel.app/api/login"
 
     // const url = "https://notepad-69yg.vercel.app/login"
 
