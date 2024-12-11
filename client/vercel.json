@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "https://your-node-backend.vercel.app/api/$1"
+      }
+    ]
+  }
+  
