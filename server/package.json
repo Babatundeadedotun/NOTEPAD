@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@babel/runtime": "^7.26.0",
+    "@sendgrid/mail": "^8.1.4",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
