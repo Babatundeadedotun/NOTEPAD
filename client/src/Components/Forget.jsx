@@ -31,6 +31,7 @@ const Forget = () => {
           setLoading(true)
           setMessage(null)
 
+          // axios.post('http://localhost:8080/api/users/forget-password', { email: values.email })
           axios.post('https://notepad-delta-orcin.vercel.app/api/users/forget-password', { email: values.email })
           .then((response) => {
             const successMessage = { type: 'success', text: 'Reset link sent to your email' }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 
 const Navbar = () => {
@@ -9,8 +9,27 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState(false)
+  const [theme, setTheme] = useState('light')
 
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+      const updateThemeBasedonSystem = () => {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const systemTheme = prefersDark ? 'dark' : 'light';
+          setTheme(systemTheme);
+          document.body.className = prefersDark ? 'dark-theme' : 'light-theme'
+      } 
+
+      updateThemeBasedonSystem();
+
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', updateThemeBasedonSystem);
+
+      return () => mediaQuery.removeEventListener('change', updateThemeBasedonSystem);
+
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -28,6 +47,11 @@ const Navbar = () => {
   const handleSuggestionClick = (suggestion) => {
     setSearchQuery(suggestion);
     setSuggestions([]);
+  }
+
+  const handleThemeChange = (selectedTheme) => {
+    setTheme(selectedTheme)
+    document.body.className = selectedTheme === 'dark' ? 'dark-theme' : 'light-theme';
   }
 
 
@@ -65,8 +89,32 @@ const Navbar = () => {
         <h3 className="offcanvas-title text-info" id="offcanvasNavbarLabel">Write</h3>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div className="offcanvas-body">
-        <hr/>
+
+
+
+
+      <div className="btn-group dropstart w-25 ms-auto me-3 mb-0">
+        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i className='bi bi-circle-half'></i>
+        </button>
+        <ul className="dropdown-menu">
+        <li><hr className="dropdown-divider"/></li>
+          <li className=''><a className="dropdown-item" href="#" onClick={() => handleThemeChange('light')}><i className="bi bi-brightness-high-fill me-2"></i>Light</a></li>
+          <li><hr className="dropdown-divider"/></li>
+          <li><a className="dropdown-item" href="#" onClick={() => handleThemeChange('dark')}><i className="bi bi-moon-stars me-2"></i>Dark</a></li>
+          <li><hr className="dropdown-divider"/></li>
+        </ul>
+      </div>
+
+
+
+
+
+      
+
+
+      <div className="offcanvas-body mt-0">
+        <hr className='mt-0'/>
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
             <a className="nav-link active d-flex gap-3" aria-current="page" href="#"><i className="bi bi-lightbulb"></i>Notes</a>
@@ -83,20 +131,6 @@ const Navbar = () => {
           <li className="nav-item">
             <a className="nav-link d-flex gap-3" href="#"><i className="bi bi-trash3"></i>Bin</a>
           </li>
-
-          {/* <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="#">Action</a></li>
-              <li><a className="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr className="dropdown-divider"/>
-              </li>
-              <li><a className="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li> */}
 
           <form className="mt-3 mx-auto w-50" role="search">
           <button className="btn btn-info text-light w-100" type="submit" onClick={handleLogout}>Log out</button>

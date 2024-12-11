@@ -113,13 +113,22 @@ const forgetPassword = async (req, res) => {
             }
         })
 
+        
+        // const resetLink = `http://localhost:5173/users/reset-password/${resetToken}`;
         const resetLink = `https://notepad-jet.vercel.app/users/reset-password/${resetToken}`;
          transporter.sendMail({
             to: email,
             subject: "Password Reset Request",
-            html: `<p>You requested a password reset. Click the link to reset your password: </p>
-            <a href="${resetLink}">Reset Password</a>
-            <p>This link will expire in 1 hour</p>`,
+            html: `<p>We received a request to reset your password for your Write account.</p>
+            <p>Click the link/button below to reset your password: </p>
+            <button><a href="${resetLink}">Reset Password</a><button>
+            <br/>
+            <p>If you didn't request this, please ignore this email. Your Password will remain unchanged.</p>
+            <p>For your security, this link will expire in 1 hour</p>
+            <br/>
+            <br/>
+            <p>Thank You,</p>
+            <p>The Write Team</p>`,
          });
         return res.status(200).json({ message: "Password Reset link sent to your email." });
     }

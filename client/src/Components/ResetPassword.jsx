@@ -32,6 +32,7 @@ const ResetPassword = () => {
             setMessage(null)
             try {
                 const response = await axios.post(`https://notepad-delta-orcin.vercel.app/api/users/reset-password/${token}`, {password: values.password});
+                // const response = await axios.post(`http://localhost:8080/api/users/reset-password/${token}`, {password: values.password});
                 setMessage({ type: 'success', text: response.data.message })
                 setTimeout(() => {
                     navigate('/login');

@@ -4,16 +4,42 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import '../App.css'
 
 const FormCompose = () => {
 
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const [theme, setTheme] = useState('light')
 
     const navigate = useNavigate() 
 
-    const url = "https://notepad-delta-orcin.vercel.app/api/users/register"
+
+
+    useEffect(() => {
+        const updateThemeBasedonSystem = () => {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const systemTheme = prefersDark ? 'dark' : 'light';
+            setTheme(systemTheme);
+            document.body.className = prefersDark ? 'dark-theme' : 'light-theme'
+        } 
+  
+        updateThemeBasedonSystem();
+  
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', updateThemeBasedonSystem);
+  
+        return () => mediaQuery.removeEventListener('change', updateThemeBasedonSystem);
+  
+    }, [])
+
+
+
+
+    // const url = "https://notepad-delta-orcin.vercel.app/api/users/register"
+
+    const url = "http://localhost:8080/api/users/register"
 
 
     const formik = useFormik({

@@ -4,14 +4,19 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import '../App.css'
 import jsPDF from 'jspdf'
 
 const Hero = () => {
 
+
+  const formRef = useRef(null)
+  const collectionRef = useRef(null)
   
   const url = "https://notepad-delta-orcin.vercel.app/api/messages/save"
+
+  // const url = "http://localhost:8080/api/messages/save"
 
 
 
@@ -49,6 +54,7 @@ const Hero = () => {
       convertedFile.readAsDataURL(userFile);
 
         convertedFile.onload = () => {
+        // axios.post('http://localhost:8080/api/messages/save/upload', { file: convertedFile.result })
           axios.post('https://notepad-delta-orcin.vercel.app/api/messages/save/upload', { file: convertedFile.result })
           .then((response) => {
             setFileReceived(response.data.stored)
@@ -72,7 +78,6 @@ const Hero = () => {
 
     }
 
-
       const formik = useFormik({
         initialValues: {
           title: "",
@@ -86,28 +91,31 @@ const Hero = () => {
         date: Yup.date().required('This field is Required').typeError('Invalid date format. Use YYYY-MM-DD')
       }),
       onSubmit: (values) => {
-        // console.log(values);
-        // if(!fileReceived && !editingNoteId) {
-        //   alert("Please upload an image before submitting or submit without an image.")
-        //   return;
-        // }
-
-     
 
         if(editingNoteId) { 
+      // axios.put(`http://localhost:8080/api/messages/save/${editingNoteId}`, {userEmail, fileReceived, ...values})
           axios.put(`https://notepad-delta-orcin.vercel.app/api/messages/save/${editingNoteId}`, {userEmail, fileReceived, ...values})
           .then((response) => {
             console.log("Edit response:", response.data);
             setNotes((prevNotes) => prevNotes.map((note) => note._id === editingNoteId ? {...note, ...values} : note))
+           
             setEditingNoteId(null)
             formik.resetForm();
             setFile(null)
             setFileReceived(null);
+         
       
             const fileInput = document.querySelector('input[type="file"]')
             if (fileInput) {
               fileInput.value = '';
+              collectionRef.current.scrollIntoView({ behavior: 'smooth' });
             }
+
+            setTimeout(()=> {
+              collectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 0);
+            
+            
           })
           .catch((error) => {
             console.error("Error updating note:", error);
@@ -119,7 +127,6 @@ const Hero = () => {
             console.log("Response from server:", response.data);
             fetchNotes(userEmail)
             formik.resetForm();
-      
             setFile(null)
             setFileReceived(null);
       
@@ -127,6 +134,11 @@ const Hero = () => {
             if (fileInput) {
               fileInput.value = '';
             }
+
+            setTimeout(() => {
+              collectionRef.current?.scrollIntoView({ behavior: "smooth" });
+            }, 0);
+
           })
           .catch((error) => {
             console.error("Error:", error);
@@ -141,6 +153,7 @@ const Hero = () => {
       const fetchNotes = async (userEmail) => {
         try {
           const response = await axios.get(`https://notepad-delta-orcin.vercel.app/api/messages/save/${userEmail}`)
+          // const response = await axios.get(`http://localhost:8080/api/messages/save/${userEmail}`)
           console.log(response.data);
           if(response.data.notes && Array.isArray(response.data.notes)) {
             setNotes(response.data.notes)
@@ -168,6 +181,7 @@ const Hero = () => {
 
           try {
             const response = await axios.delete(`https://notepad-delta-orcin.vercel.app/api/messages/save/${id}`)
+            // const response = await axios.delete(`http://localhost:8080/api/messages/save/${id}`)
             console.log("Delete response:", response.data);
 
             setNotes((prevNotes) => prevNotes.filter((note) => note._id !== id))
@@ -176,8 +190,6 @@ const Hero = () => {
             alert("Failed to delete note. Please try again.")
           }
         }
-
-
 
     const editItem = async (id) => {
       const noteToEdit = notes.find((note) => note._id === id);
@@ -190,6 +202,8 @@ const Hero = () => {
         })
         setFileReceived(noteToEdit.fileReceived);
         setEditingNoteId(id);
+
+        formRef.current?.scrollIntoView({ behavior: "smooth" });
         
       }
     }
@@ -264,7 +278,8 @@ const Hero = () => {
     const fetchImageAsBase64 = async (url) => {
     
         try {
-          const response = await fetch(url);
+          const response = await fetch(url, { mode: 'cors' });
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
           const blob = await response.blob();
           return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -277,8 +292,6 @@ const Hero = () => {
         }
 
     }
-
-
 
     const exportNoteAsText = (note) => {
       const blob = new Blob([`Title: ${note.title}\n\nDate: ${new Date(note.date).toDateString()}\n\nContent:\n${note.content}`], {type: 'text/plain'});
@@ -294,7 +307,7 @@ const Hero = () => {
 
   return (
     <>
-    <div className='form-control container-fluid w-50 p-3 border border-2 rounded-3 shadow-sm bg-transparent heroContent'>
+    <div ref={formRef} className='form-control container-fluid w-50 p-3 border border-2 rounded-3 shadow-sm bg-transparent heroContent'>
     <div className='bg-transparent opacity-100 mb-4'>
             <h1 className='text-center text-info border border-2 border-info rounded-5 shadow-sm' style={{height: "55px"}}>Write</h1>
         </div>
@@ -335,7 +348,11 @@ const Hero = () => {
       </div>
 
 
-        <div className='text-center mt-5'>
+
+
+
+
+        <div ref={collectionRef} className='text-center mt-5'>
           <hr/>
           <h2>Collections</h2>
           <hr/>
