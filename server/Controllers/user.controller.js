@@ -120,12 +120,13 @@ const forgetPassword = async (req, res) => {
             to: email,
             subject: "Password Reset Request",
             html: `<p>We received a request to reset your password for your Write account.</p>
-            <p>Click the link/button below to reset your password: </p>
-            <button className="btn btn-primary"><a href="${resetLink}">Reset Password</a><button>
-            
+            <p>Click the link below to reset your password: </p>
+            <a href="${resetLink}">Reset Password</a>
+            <br/>
+            <br/>
+            <br/>
             <p>If you didn't request this, please ignore this email. Your Password will remain unchanged.</p>
             <p>For your security, this link will expire in 1 hour</p>
-            
             <p>Thank You,</p>
             <p>The Write Team</p>`,
          });
