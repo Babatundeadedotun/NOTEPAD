@@ -82,7 +82,7 @@ body, html {
       width: auto;
     }
     .loginForms{
-      width: auto !important;
+      width: 90% !important;
     }
     .searchDiv{
       display: none !important;

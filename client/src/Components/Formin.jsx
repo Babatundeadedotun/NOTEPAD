@@ -68,7 +68,7 @@ const Formin = () => {
             <h1 className='text-center text-info'>Write</h1>
         </div>
     <div className='row pb-5 loginForm'>
-        <div className='col-6 mx-auto mt-3 loginForm'>
+        <div className='col-6 mx-auto mt-3 loginForms'>
         <h1 className='mx-auto'>Sign in</h1>
         <p>Not a member? <Link to="/signup" className='link-info link-offset-2 link-underline link-underline-opacity-0'>Join Write</Link></p>
         
