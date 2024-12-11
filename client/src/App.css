@@ -81,6 +81,9 @@ body, html {
     .loginForm{
       width: auto;
     }
+    .loginForms{
+      width: auto !important;
+    }
     .searchDiv{
       display: none !important;
     }
