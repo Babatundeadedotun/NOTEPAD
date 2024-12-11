@@ -5,8 +5,6 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const path = require("path");
 const { log } = require("console");
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 require("dotenv").config();
 
 
@@ -104,35 +102,23 @@ const forgetPassword = async (req, res) => {
         user.resetTokenExpiry = tokenExpiry;
         await user.save()
 
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            }
+        })
 
-        const msg = {
+        const resetLink = `https://notepad-jet.vercel.app/users/reset-password/${resetToken}`;
+         transporter.sendMail({
             to: email,
-            from: process.env.EMAIL,
             subject: "Password Reset Request",
             html: `<p>You requested a password reset. Click the link to reset your password: </p>
-                    <a href="${resetLink}">Reset Password</a>
-                    <p>This link will expire in 1 hour</p>`,
-        };
-        await sgMail.send(msg);
+            <a href="${resetLink}">Reset Password</a>
+            <p>This link will expire in 1 hour</p>`,
+         });
         return res.status(200).json({ message: "Password Reset link sent to your email." });
-
-    //     const transporter = nodemailer.createTransport({
-    //         service: "gmail",
-    //         auth: {
-    //             user: process.env.EMAIL,
-    //             pass: process.env.PASSWORD,
-    //         }
-    //     })
-
-    //     const resetLink = `https://notepad-jet.vercel.app/users/reset-password/${resetToken}`;
-    //      transporter.sendMail({
-    //         to: email,
-    //         subject: "Password Reset Request",
-    //         html: `<p>You requested a password reset. Click the link to reset your password: </p>
-    //         <a href="${resetLink}">Reset Password</a>
-    //         <p>This link will expire in 1 hour</p>`,
-    //      });
-    //     return res.status(200).json({ message: "Password Reset link sent to your email." });
     }
     catch(error) {
         console.error("Error processing request:", error);
