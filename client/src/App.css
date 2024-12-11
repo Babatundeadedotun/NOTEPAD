@@ -97,6 +97,9 @@ body, html {
       width: auto !important;
       padding: 10% !important;
     }
+    .resetDiv{
+      width: 85% !important;
+    }
   }
 
   @media screen and (max-width: 820px){
