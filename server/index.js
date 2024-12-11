@@ -12,7 +12,7 @@ const path = require("path")
 
 
 app.use(cors({ 
-    origin: "https://notepad-six-ebon.vercel.app",
+    origin: "https://notepad-jet.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true }))
 app.use(express.json({ limit: '9000mb' }))

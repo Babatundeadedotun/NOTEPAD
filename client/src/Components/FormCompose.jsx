@@ -13,9 +13,7 @@ const FormCompose = () => {
 
     const navigate = useNavigate() 
 
-    // const url = "https://notepad-69yg.vercel.app/register"
-
-    const url = "https://notepad-10ml.vercel.app/api/users/register"
+    const url = "https://notepad-delta-orcin.vercel.app/api/users/register"
 
 
     const formik = useFormik({
