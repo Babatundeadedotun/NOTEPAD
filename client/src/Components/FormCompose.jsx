@@ -37,9 +37,9 @@ const FormCompose = () => {
 
 
 
-    // const url = "https://notepad-delta-orcin.vercel.app/api/users/register"
+    const url = "https://notepad-delta-orcin.vercel.app/api/users/register"
 
-    const url = "http://localhost:8080/api/users/register"
+    // const url = "http://localhost:8080/api/users/register"
 
 
     const formik = useFormik({
